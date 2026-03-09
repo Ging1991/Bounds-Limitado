@@ -4,7 +4,6 @@ using Bounds.Modulos.Cartas.Ilustradores;
 using Bounds.Modulos.Cartas.Persistencia;
 using Bounds.Modulos.Cartas.Tinteros;
 using Bounds.Persistencia.Datos;
-using Ging1991.Core;
 using Ging1991.Interfaces.Contadores;
 using UnityEngine;
 
@@ -44,7 +43,6 @@ namespace Bounds.Limitado {
 		void OnMouseDown() {
 			GameObject control = GameObject.Find("Control");
 			control.GetComponent<LimitadoControl>().SeleccionarCarta(gameObject);
-			//			GameObject.Find("Sonidos").GetComponent<GestorDeSonidos>().ReproducirSonido("FxAdquisicion");
 		}
 
 

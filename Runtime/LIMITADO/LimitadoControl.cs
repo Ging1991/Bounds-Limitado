@@ -7,11 +7,14 @@ using Bounds.Modulos.Cartas.Ilustradores;
 using Bounds.Modulos.Cartas.Persistencia;
 using Bounds.Modulos.Cartas.Tinteros;
 using Bounds.Modulos.Persistencia;
+using Bounds.Musica;
 using Bounds.Persistencia;
 using Bounds.Persistencia.Datos;
 using Bounds.Persistencia.Parametros;
 using Caballero.Infraestructura;
 using Ging1991.Core;
+using Ging1991.Musica;
+using Ging1991.Persistencia.Direcciones;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -36,6 +39,7 @@ namespace Bounds.Limitado {
 		public ParametrosControl parametrosControl;
 		private Billetera billetera;
 		private Configuracion configuracion;
+		public GestorDeSonidos gestorDeSonidos;
 
 
 		void Start() {
@@ -45,6 +49,7 @@ namespace Bounds.Limitado {
 			musicaDeFondo.Inicializar(parametros.direcciones["MUSICA_TIENDA"]);
 			billetera = new(parametros.direcciones["BILLETERA"]);
 			configuracion = new(parametros.direcciones["CONFIGURACION"]);
+			gestorDeSonidos.Inicializar(new DireccionRecursos(parametros.direcciones["SONIDOS"]));
 			cofre = new(parametros.direcciones["COFRE"], parametros.direcciones["COFRE_RECURSOS"]);
 
 			ilustradorDeCartas = new IlustradorDeCartas(
@@ -81,6 +86,7 @@ namespace Bounds.Limitado {
 
 
 		public void SeleccionarCarta(GameObject opcion) {
+			gestorDeSonidos.ReproducirSonido("FxAdquisicion");
 
 			MoverSobre(sobreVisible, LimitadoSobre.Direccion.IZQUIERDA);
 			MoverSobre(sobreVisible + 1, LimitadoSobre.Direccion.CENTRO);
