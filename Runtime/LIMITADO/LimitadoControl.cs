@@ -5,14 +5,15 @@ using Bounds.Infraestructura;
 using Bounds.Modulos.Cartas;
 using Bounds.Modulos.Cartas.Ilustradores;
 using Bounds.Modulos.Cartas.Persistencia;
+using Bounds.Modulos.Cartas.Persistencia.Datos;
 using Bounds.Modulos.Cartas.Tinteros;
-using Bounds.Modulos.Persistencia;
 using Bounds.Musica;
 using Bounds.Persistencia;
 using Bounds.Persistencia.Datos;
 using Bounds.Persistencia.Parametros;
 using Caballero.Infraestructura;
 using Ging1991.Core;
+using Ging1991.Core.Interfaces;
 using Ging1991.Musica;
 using Ging1991.Persistencia.Direcciones;
 using UnityEngine;
@@ -40,6 +41,7 @@ namespace Bounds.Limitado {
 		private Billetera billetera;
 		private Configuracion configuracion;
 		public GestorDeSonidos gestorDeSonidos;
+		public IProveedor<int, CartaBD> proveedorCartas;
 
 
 		void Start() {
@@ -51,13 +53,14 @@ namespace Bounds.Limitado {
 			configuracion = new(parametros.direcciones["CONFIGURACION"]);
 			gestorDeSonidos.Inicializar(new DireccionRecursos(parametros.direcciones["SONIDOS"]));
 			cofre = new(parametros.direcciones["COFRE"], parametros.direcciones["COFRE_RECURSOS"]);
+			proveedorCartas = new LectorCartas(new DireccionRecursos(parametrosControl.parametros.direcciones["CARTAS_DATOS"]));
 
 			ilustradorDeCartas = new IlustradorDeCartas(
 				parametrosControl.parametros.direcciones["CARTAS_RECURSO"],
 				parametrosControl.parametros.direcciones["CARTAS_DINAMICA"]
 			);
 
-			DatosDeCartas.Instancia.Inicializar();
+
 			if (debeInicializarMiniaturas)
 				InicializarMiniaturaVisual();
 
@@ -148,7 +151,7 @@ namespace Bounds.Limitado {
 			ITintero tintero = new TinteroBounds();
 			for (int i = 1; i < 21; i++) {
 				GameObject miniatura = GameObject.Find($"Miniatura{i}");
-				miniatura.GetComponentInChildren<CartaFrente>().Inicializar(DatosDeCartas.Instancia, ilustradorDeCartas, tintero);
+				miniatura.GetComponentInChildren<CartaFrente>().Inicializar(proveedorCartas, ilustradorDeCartas, tintero);
 			}
 		}
 
@@ -159,7 +162,7 @@ namespace Bounds.Limitado {
 
 
 		public void InicializarSobre(int indice, IlustradorDeCartas ilustradorDeCartas) {
-			GameObject.Find("Sobre" + indice).GetComponent<LimitadoSobre>().InicializarSobre(ilustradorDeCartas, cofre);
+			GameObject.Find("Sobre" + indice).GetComponent<LimitadoSobre>().InicializarSobre(ilustradorDeCartas, cofre, proveedorCartas);
 		}
 
 
@@ -181,7 +184,6 @@ namespace Bounds.Limitado {
 		public void Volver() {
 			SceneManager.LoadScene(parametrosControl.parametros.escenaPadre);
 		}
-
 
 
 		public void MoverSobre(int indice, LimitadoSobre.Direccion direccion) {

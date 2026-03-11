@@ -2,6 +2,7 @@
 using Bounds.Cofres;
 using Bounds.Modulos.Cartas.Ilustradores;
 using Bounds.Modulos.Cartas.Persistencia;
+using Bounds.Modulos.Cartas.Persistencia.Datos;
 using Bounds.Modulos.Cartas.Tinteros;
 using Bounds.Persistencia;
 using Bounds.Persistencia.Datos;
@@ -29,25 +30,25 @@ namespace Bounds.Limitado {
 		public ITintero tintero;
 
 
-		public void InicializarSobre(IlustradorDeCartas ilustradorDeCartas, Cofre cofre) {
+		public void InicializarSobre(IlustradorDeCartas ilustradorDeCartas, Cofre cofre, IProveedor<int, CartaBD> proveedorCartas) {
 			this.ilustradorDeCartas = ilustradorDeCartas;
 			LectorLimitado lectorLimitado = new();
 			Coleccion coleccion = new(lectorLimitado.LeerColeccion(), new DireccionRecursos("COLECCIONES", lectorLimitado.LeerColeccion()).Generar());
 			Sobre sobre = coleccion.CrearSobre();
 			tintero = new TinteroBounds();
 
-			InicializarOpcionCarta(1, sobre.rara, cofre, sobre.rarezaSobre);
-			InicializarOpcionCarta(2, sobre.infrecuentes[0], cofre, "PLA");
-			InicializarOpcionCarta(3, sobre.infrecuentes[1], cofre, "PLA");
-			InicializarOpcionCarta(4, sobre.comunes[0], cofre, "N");
-			InicializarOpcionCarta(5, sobre.comunes[1], cofre, "N");
-			InicializarOpcionCarta(6, sobre.comunes[2], cofre, "N");
+			InicializarOpcionCarta(1, sobre.rara, cofre, sobre.rarezaSobre, proveedorCartas);
+			InicializarOpcionCarta(2, sobre.infrecuentes[0], cofre, "PLA", proveedorCartas);
+			InicializarOpcionCarta(3, sobre.infrecuentes[1], cofre, "PLA", proveedorCartas);
+			InicializarOpcionCarta(4, sobre.comunes[0], cofre, "N", proveedorCartas);
+			InicializarOpcionCarta(5, sobre.comunes[1], cofre, "N", proveedorCartas);
+			InicializarOpcionCarta(6, sobre.comunes[2], cofre, "N", proveedorCartas);
 		}
 
 
-		public void InicializarOpcionCarta(int indice, CartaColeccionBD carta, Cofre cofre, string rareza) {
+		public void InicializarOpcionCarta(int indice, CartaColeccionBD carta, Cofre cofre, string rareza, IProveedor<int, CartaBD> proveedorCartas) {
 			GameObject opcion = transform.GetChild(indice).gameObject;
-			opcion.GetComponent<LimitadoOpcionCarta>().Inicializar(carta, cofre, rareza, DatosDeCartas.Instancia, ilustradorDeCartas, tintero);
+			opcion.GetComponent<LimitadoOpcionCarta>().Inicializar(carta, cofre, rareza, proveedorCartas, ilustradorDeCartas, tintero);
 		}
 
 

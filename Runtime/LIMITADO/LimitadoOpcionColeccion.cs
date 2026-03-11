@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bounds.Cofres;
 using Bounds.Infraestructura;
+using Bounds.Modulos.Cartas.Persistencia.Datos;
 using Bounds.Modulos.Cartas.Tinteros;
 using Bounds.Persistencia;
 using Bounds.Persistencia.Datos;
@@ -30,7 +31,7 @@ namespace Bounds.Limitado {
 		public Image ilustracionOBJ;
 
 
-		public void Inicializar(Cofre cofre, Coleccion coleccion, Billetera billetera, IProveedor<string, Sprite> ilustrador) {
+		public void Inicializar(IProveedor<int, CartaBD> proveedorCartas, Cofre cofre, Coleccion coleccion, Billetera billetera, IProveedor<string, Sprite> ilustrador) {
 			this.cofre = cofre;
 			this.coleccion = coleccion;
 			this.billetera = billetera;
@@ -39,7 +40,7 @@ namespace Bounds.Limitado {
 			precioOBJ.GetComponent<MarcoConTexto>().SetColorRelleno(Color.yellow);
 			nombreOBJ.GetComponent<MarcoConTexto>().SetTexto($"{coleccion.titulo}");
 			posesionOBJ.GetComponent<MarcoConTexto>().SetTexto($"{EstablecerPosesion()}");
-			GetComponent<ContenedorDeCartas>()?.Inicializar(ilustrador, tintero, coleccion.emblema.cartaID);
+			GetComponent<ContenedorDeCartas>()?.Inicializar(proveedorCartas, ilustrador, tintero, coleccion.emblema.cartaID);
 		}
 
 

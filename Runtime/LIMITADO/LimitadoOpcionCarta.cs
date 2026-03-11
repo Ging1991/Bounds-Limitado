@@ -2,8 +2,10 @@
 using Bounds.Modulos.Cartas;
 using Bounds.Modulos.Cartas.Ilustradores;
 using Bounds.Modulos.Cartas.Persistencia;
+using Bounds.Modulos.Cartas.Persistencia.Datos;
 using Bounds.Modulos.Cartas.Tinteros;
 using Bounds.Persistencia.Datos;
+using Ging1991.Core.Interfaces;
 using Ging1991.Interfaces.Contadores;
 using UnityEngine;
 
@@ -15,11 +17,11 @@ namespace Bounds.Limitado {
 		public GameObject contadorOBJ;
 		public string rareza;
 
-		public void Inicializar(CartaColeccionBD carta, Cofre cofre, string rareza, DatosDeCartas datosDeCartas, IlustradorDeCartas ilustradorDeCartas, ITintero tintero) {
+		public void Inicializar(CartaColeccionBD carta, Cofre cofre, string rareza, IProveedor<int, CartaBD> proveedorCartas, IlustradorDeCartas ilustradorDeCartas, ITintero tintero) {
 			this.carta = carta;
 			this.rareza = rareza;
 			Habilitar(true);
-			GetComponentInChildren<CartaFrente>().Inicializar(datosDeCartas, ilustradorDeCartas, tintero);
+			GetComponentInChildren<CartaFrente>().Inicializar(proveedorCartas, ilustradorDeCartas, tintero);
 			GetComponentInChildren<CartaFrente>().Mostrar(carta.cartaID, carta.imagen, rareza);
 			contadorOBJ.GetComponent<ContadorNumero>().SetColorRelleno(Color.red);
 			int cantidad = cofre.GetCantidadCartasDiferentes(carta.cartaID);
