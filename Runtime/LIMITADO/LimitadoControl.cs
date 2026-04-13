@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Bounds.Cofres;
+using Bounds.Entrenamiento;
 using Bounds.Global.Mazos;
 using Bounds.Infraestructura;
 using Bounds.Modulos.Cartas;
@@ -42,9 +43,10 @@ namespace Bounds.Limitado {
 		private Configuracion configuracion;
 		public GestorDeSonidos gestorDeSonidos;
 		public IProveedor<int, CartaBD> proveedorCartas;
-
+		public PersonalizarUI personalizarUI;
 
 		void Start() {
+			personalizarUI.Personalizar();
 			parametrosControl.Inicializar();
 			ParametrosEscena parametros = parametrosControl.parametros;
 

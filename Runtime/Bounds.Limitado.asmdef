@@ -8,6 +8,7 @@
         "Bounds.Cofres",
         "Bounds.Duelo",
         "Bounds.Construccion",
+        "Bounds.Entrenamiento",
         "Bounds.Visuales",
         "Bounds.Tienda",
         "Bounds.Persistencia",

@@ -7,15 +7,13 @@ using Bounds.Persistencia;
 using Bounds.Persistencia.Datos;
 using Bounds.Tienda;
 using Ging1991.Core.Interfaces;
-using Ging1991.Interfaces;
-using Ging1991.Persistencia.Direcciones;
-using Ging1991.Ventanas;
+using Ging1991.Interfaces.Salida;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Bounds.Limitado {
 
-	public class LimitadoOpcionColeccion : MonoBehaviour, IPresionarBoton {
+	public class LimitadoOpcionColeccion : MonoBehaviour, IEjecutable {
 
 		public int precio;
 		public GameObject precioOBJ;
@@ -61,30 +59,25 @@ namespace Bounds.Limitado {
 		void OnMouseDown() {
 
 			if (billetera.LeerOro() >= precio) {
-				VentanaControl.CrearVentanaConfirmar($"¿Desea comprar el pase de limitado por ${precio}?", this);
+				ControlLimitadoColeccion.Instancia.ventanaControl.MostrarVentanaConfirmar($"¿Desea comprar el pase de limitado por ${precio}?", this);
 			}
 			else {
-				VentanaControl.CrearVentanaAceptar("No tiene suficiente oro: $" + billetera.LeerOro());
-			}
-		}
-
-
-		public void PresionarBoton(TipoBoton boton) {
-			if (boton == TipoBoton.ACEPTAR) {
-				billetera.GastarOro(precio);
-
-				//EfectosDeSonido.Tocar("FxAdquisicion");
-				LectorLimitado lector = new LectorLimitado();
-				lector.GuardarColeccion(coleccion.codigo);
-				lector.GuardarEstado("PAGADO");
-				ControlEscena.GetInstancia().CambiarEscena("LIMITADO SELECCION CARTAS");
-			}
-			else {
+				ControlLimitadoColeccion.Instancia.ventanaControl.MostrarVentanaAceptar("No tiene suficiente oro: $" + billetera.LeerOro());
 				//EfectosDeSonido.Tocar("FxRebote");
 			}
 		}
 
 
+
+		public void Ejecutar() {
+			billetera.GastarOro(precio);
+			//EfectosDeSonido.Tocar("FxAdquisicion");
+			LectorLimitado lector = new LectorLimitado();
+			lector.GuardarColeccion(coleccion.codigo);
+			lector.GuardarEstado("PAGADO");
+			ControlEscena.GetInstancia().CambiarEscena("LIMITADO SELECCION CARTAS");
+
+		}
 	}
 
 }

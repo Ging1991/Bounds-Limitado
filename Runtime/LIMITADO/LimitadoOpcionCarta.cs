@@ -1,12 +1,11 @@
 ﻿using Bounds.Cofres;
 using Bounds.Modulos.Cartas;
 using Bounds.Modulos.Cartas.Ilustradores;
-using Bounds.Modulos.Cartas.Persistencia;
 using Bounds.Modulos.Cartas.Persistencia.Datos;
 using Bounds.Modulos.Cartas.Tinteros;
 using Bounds.Persistencia.Datos;
 using Ging1991.Core.Interfaces;
-using Ging1991.Interfaces.Contadores;
+using Ging1991.Interfaces.Salida;
 using UnityEngine;
 
 namespace Bounds.Limitado {
