@@ -43,12 +43,12 @@ namespace Bounds.Limitado {
 		private Configuracion configuracion;
 		public GestorDeSonidos gestorDeSonidos;
 		public IProveedor<int, CartaBD> proveedorCartas;
-		public PersonalizarUI personalizarUI;
+		public ControlUIBounds personalizarUI;
 
 		void Start() {
-			personalizarUI.Personalizar();
 			parametrosControl.Inicializar();
 			ParametrosEscena parametros = parametrosControl.parametros;
+			personalizarUI.Personalizar(parametros.direcciones["SISTEMA"], parametros.direcciones["COLORES"]);
 
 			musicaDeFondo.Inicializar(parametros.direcciones["MUSICA_TIENDA"]);
 			billetera = new(parametros.direcciones["BILLETERA"]);

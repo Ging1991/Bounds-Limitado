@@ -23,12 +23,12 @@ namespace Bounds.Limitado {
 		public VentanaControl ventanaControl;
 		private Billetera billetera;
 		private Configuracion configuracion;
-		public PersonalizarUI personalizarUI;
+		public ControlUIBounds personalizarUI;
 
 		void Start() {
-			personalizarUI.Personalizar();
 			parametrosControl.Inicializar();
 			ParametrosEscena parametros = parametrosControl.parametros;
+			personalizarUI.Personalizar(parametros.direcciones["SISTEMA"], parametros.direcciones["COLORES"]);
 			proveedorCartas = new LectorCartas(new DireccionRecursos(parametrosControl.parametros.direcciones["CARTAS_DATOS"]));
 
 			musicaDeFondo.Inicializar(parametros.direcciones["MUSICA_TIENDA"]);
