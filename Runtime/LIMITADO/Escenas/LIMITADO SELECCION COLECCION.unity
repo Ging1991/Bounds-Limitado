@@ -1742,7 +1742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2270288143539856958, guid: 4ab9f2dc888c98f4a8f7a20632804f3d, type: 3}
       propertyPath: precio
-      value: 20000
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 4280813780118929326, guid: 4ab9f2dc888c98f4a8f7a20632804f3d, type: 3}
       propertyPath: m_Pivot.x
