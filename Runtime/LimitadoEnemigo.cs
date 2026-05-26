@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using Bounds.Global;
-using Bounds.Global.Mazos;
 using Bounds.Infraestructura;
+using Bounds.Mazos;
 using Bounds.Persistencia;
-using Bounds.Persistencia.Datos;
 using Ging1991.Persistencia.Direcciones;
 using UnityEngine;
 using UnityEngine.SceneManagement;

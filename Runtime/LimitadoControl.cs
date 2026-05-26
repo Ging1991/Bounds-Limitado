@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bounds.Cofres;
-using Bounds.Entrenamiento;
-using Bounds.Global.Mazos;
 using Bounds.Infraestructura;
+using Bounds.Mazos;
 using Bounds.Modulos.Cartas;
 using Bounds.Modulos.Cartas.Ilustradores;
 using Bounds.Modulos.Cartas.Persistencia;
